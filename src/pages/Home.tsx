@@ -353,6 +353,16 @@ function ChatInterface({
                   <p>{msg.content}</p>
                 ) : (
                   <div className="space-y-4">
+                    {/* Display raw message if present (highest priority fallback) */}
+                    {msg.response?.message && (
+                      <div className="text-gray-800 whitespace-pre-wrap">{msg.response.message}</div>
+                    )}
+
+                    {/* Display text field if present */}
+                    {msg.response?.result?.text && (
+                      <div className="text-gray-800 whitespace-pre-wrap">{msg.response.result.text}</div>
+                    )}
+
                     {msg.response?.result && (
                       <>
                         {/* Compliance Manager Response (Q&A) */}
@@ -543,6 +553,30 @@ function ChatInterface({
                           </div>
                         )}
                       </>
+                    )}
+
+                    {/* Fallback: Display any unhandled response content */}
+                    {msg.response && !msg.response.message && !msg.response.result?.text && !msg.response.result?.response_type && !msg.response.result?.extracted_rules && msg.response.result?.compliance_score === undefined && (
+                      <div className="text-gray-800">
+                        <div className="text-sm font-medium mb-2">Response:</div>
+                        <pre className="text-xs bg-gray-50 p-3 rounded overflow-auto max-h-96">
+                          {JSON.stringify(msg.response.result, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+
+                    {/* Error display */}
+                    {msg.response?.status === 'error' && (
+                      <div className="bg-red-50 border border-red-200 rounded p-3 flex items-start gap-2">
+                        <XCircle className="h-4 w-4 text-red-600 mt-0.5" />
+                        <div className="text-sm text-red-800">
+                          {msg.response.message || 'An error occurred processing your request'}
+                        </div>
+                      </div>
+                    )}
+
+                    {!msg.response && msg.content && (
+                      <div className="text-gray-800">{msg.content}</div>
                     )}
 
                     <div className="text-xs text-gray-500 mt-2 flex items-center gap-2">
@@ -1376,7 +1410,20 @@ function PortfolioDatabase() {
 // Main Home Component
 export default function Home() {
   const [activeTab, setActiveTab] = useState('chat')
-  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: 'welcome',
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      response: {
+        status: 'success',
+        result: {
+          text: "I'm your Compliance Assistant. I can help you with:\n\n• Answering questions about investment guidelines and compliance rules\n• Extracting structured rules from Investment Guideline PDFs\n• Checking compliance against portfolio holdings\n• Identifying breaches and suggesting remediation\n\nUpload a guideline PDF or ask me anything about compliance."
+        }
+      }
+    }
+  ])
   const [loading, setLoading] = useState(false)
   const [selectedVersion, setSelectedVersion] = useState(mockVersions[0].id)
 
@@ -1403,6 +1450,10 @@ export default function Home() {
 
       const result = await callAIAgent(content, agentId)
 
+      console.log('Agent response:', result)
+      console.log('Response success:', result.success)
+      console.log('Response data:', result.response)
+
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -1417,8 +1468,13 @@ export default function Home() {
       const errorMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Sorry, I encountered an error processing your request.',
-        timestamp: new Date()
+        content: '',
+        timestamp: new Date(),
+        response: {
+          status: 'error',
+          result: {},
+          message: error instanceof Error ? error.message : 'Sorry, I encountered an error processing your request. Please check the console for details.'
+        }
       }
       setMessages(prev => [...prev, errorMessage])
     } finally {
