@@ -122,9 +122,23 @@ The application uses these agent IDs (hardcoded in Home.tsx):
 3. Verify agent IDs are correct
 4. Check API key in `.env`
 
-### "Credits exhausted" Error
-- This means the Lyzr account needs credits recharged
-- The agents are created but cannot be tested until credits are added
+### "Credits exhausted" Error (HTTP 429)
+**This is the current issue you're experiencing.**
+
+The error "API returned status 429" means:
+- Your Lyzr account has run out of API credits
+- The agents are created and configured correctly
+- They just need credits to process requests
+
+**What you'll see:**
+- Red error message in chat: "API Credits Exhausted: Your Lyzr account has run out of credits. Please recharge your account to continue using the AI agents."
+- Console shows: "API returned status 429"
+
+**To fix:**
+1. Go to your Lyzr account dashboard
+2. Add credits to your account
+3. Once recharged, the agents will work immediately
+4. No code changes needed - everything is configured correctly
 
 ### Response Shows JSON Instead of Formatted
 - This means the response structure doesn't match expected format

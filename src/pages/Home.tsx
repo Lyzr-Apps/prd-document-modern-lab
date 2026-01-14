@@ -1454,6 +1454,36 @@ export default function Home() {
       console.log('Response success:', result.success)
       console.log('Response data:', result.response)
 
+      // Check for API errors and provide helpful messages
+      if (!result.success && result.error) {
+        let errorMessage = result.error
+
+        // Detect specific error types
+        if (result.error.includes('429') || result.error.toLowerCase().includes('credit')) {
+          errorMessage = 'API Credits Exhausted: Your Lyzr account has run out of credits. Please recharge your account to continue using the AI agents.'
+        } else if (result.error.includes('401') || result.error.includes('403')) {
+          errorMessage = 'Authentication Error: Invalid API key. Please check your VITE_LYZR_API_KEY in the .env file.'
+        } else if (result.error.includes('404')) {
+          errorMessage = 'Agent Not Found: The agent ID may be invalid or the agent may have been deleted.'
+        } else if (result.error.toLowerCase().includes('network')) {
+          errorMessage = 'Network Error: Unable to connect to the AI service. Please check your internet connection.'
+        }
+
+        const errorMsg: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: '',
+          timestamp: new Date(),
+          response: {
+            status: 'error',
+            result: {},
+            message: errorMessage
+          }
+        }
+        setMessages(prev => [...prev, errorMsg])
+        return
+      }
+
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
