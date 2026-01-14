@@ -1,0 +1,23 @@
+{
+  "response_type": "qa",
+  "question": "What are the current cash holding limits for our investment guidelines, and is our Global Equity Fund currently in compliance?",
+  "answer": "According to the Investment Management Agreement Section 4.2, the cash holdings limit is a maximum of 10% of Net Asset Value (NAV) for all funds. The Global Equity Fund currently holds 8.5% in cash, which is in compliance with this guideline. The fund has $850M in cash out of a total $10B AUM, providing adequate liquidity while remaining within policy limits.",
+  "source_references": [
+    {
+      "section": "§4.2",
+      "rule_id": "R001",
+      "rule_name": "Cash Holdings Limit",
+      "rule_text": "The Investment Manager shall not hold cash and cash equivalents exceeding 10% of the Fund's Net Asset Value at any time."
+    }
+  ],
+  "compliance_status": {
+    "fund_name": "Global Equity Fund",
+    "rule_checked": "Cash Holdings Limit",
+    "current_value": "8.5%",
+    "limit": "10%",
+    "status": "Compliant",
+    "headroom": "1.5%"
+  },
+  "action_items": [],
+  "conversation_context": "General compliance inquiry about cash limits and fund status"
+}

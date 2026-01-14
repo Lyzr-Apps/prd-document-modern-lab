@@ -1,0 +1,53 @@
+{
+  "agent_name": "Compliance Checker Agent",
+  "agent_id": "6967f2cd55d255804bb17162",
+  "agent_purpose": "analyzer",
+  "description": "Validates portfolio holdings against compliance rules and generates detailed breach reports with compliance scoring and remediation guidance",
+  "response_schema": {
+    "status": "string (success|error)",
+    "result": {
+      "analysis": "string",
+      "findings": [
+        {
+          "title": "string",
+          "description": "string",
+          "severity": "string (low|medium|high)"
+        }
+      ],
+      "score": "number (optional, 0-100)",
+      "recommendations": [
+        "string"
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string (ISO)"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "analysis": "Comprehensive analysis of the provided data",
+      "findings": [
+        {
+          "title": "Key Finding 1",
+          "description": "Important observation",
+          "severity": "high"
+        }
+      ],
+      "score": 85,
+      "recommendations": [
+        "Consider optimizing X",
+        "Review Y for improvements"
+      ]
+    },
+    "metadata": {
+      "agent_name": "Compliance Checker Agent",
+      "timestamp": "2025-01-15T10:30:00Z"
+    }
+  },
+  "is_actual_tested": false,
+  "test_timestamp": null,
+  "test_message_used": "Analyze this sample data for testing",
+  "test_error": "Agent API returned status 429"
+}

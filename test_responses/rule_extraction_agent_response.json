@@ -1,0 +1,56 @@
+{
+  "extracted_rules": [
+    {
+      "rule_id": "R001",
+      "rule_name": "Cash Holdings Limit",
+      "rule_type": "Limit",
+      "value_threshold": "Max 10% NAV",
+      "applicable_funds": "All Funds",
+      "source_section": "§4.2",
+      "confidence_score": 95,
+      "ambiguous_flag": false
+    },
+    {
+      "rule_id": "R002",
+      "rule_name": "Single Issuer Exposure",
+      "rule_type": "Limit",
+      "value_threshold": "Max 5% NAV",
+      "applicable_funds": "Equity Funds",
+      "source_section": "§5.1",
+      "confidence_score": 92,
+      "ambiguous_flag": false
+    },
+    {
+      "rule_id": "R003",
+      "rule_name": "Derivative Prohibition",
+      "rule_type": "Restriction",
+      "value_threshold": "No naked shorts",
+      "applicable_funds": "All Funds",
+      "source_section": "§6.3",
+      "confidence_score": 88,
+      "ambiguous_flag": false
+    },
+    {
+      "rule_id": "R004",
+      "rule_name": "Credit Rating Floor",
+      "rule_type": "Requirement",
+      "value_threshold": "Min BBB-",
+      "applicable_funds": "Bond Funds",
+      "source_section": "§7.1",
+      "confidence_score": 78,
+      "ambiguous_flag": true
+    },
+    {
+      "rule_id": "R005",
+      "rule_name": "Sector Concentration Limit",
+      "rule_type": "Limit",
+      "value_threshold": "Max 25% per sector",
+      "applicable_funds": "Equity Funds",
+      "source_section": "§5.4",
+      "confidence_score": 90,
+      "ambiguous_flag": false
+    }
+  ],
+  "total_rules_extracted": 5,
+  "ambiguous_rules_count": 1
+}

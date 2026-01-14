@@ -1,0 +1,54 @@
+{
+  "compliance_score": 73,
+  "total_rules_checked": 5,
+  "rules_passed": 3,
+  "rules_failed": 2,
+  "breach_report": [
+    {
+      "fund_name": "China Growth Fund",
+      "rule_violated": "Cash Holdings Limit",
+      "rule_id": "R001",
+      "current_portfolio_value": "12%",
+      "rule_limit": "10%",
+      "variance_percentage": "+2%",
+      "severity_level": "Medium",
+      "root_cause_analysis": "Recent redemptions increased cash position above policy limit",
+      "remediation_suggestion": "Reduce cash by 2% (~$2.4M) - Deploy into existing equity positions aligned with current allocations"
+    },
+    {
+      "fund_name": "Global Bond Fund",
+      "rule_violated": "Credit Rating Floor",
+      "rule_id": "R004",
+      "current_portfolio_value": "BB+ holding",
+      "rule_limit": "BBB-",
+      "variance_percentage": "N/A",
+      "severity_level": "High",
+      "root_cause_analysis": "Issuer downgrade last month from BBB- to BB+, position now below minimum rating threshold",
+      "remediation_suggestion": "Divest BB+ rated holding (~$5.1M) - Replace with investment grade bonds (BBB- or higher) in similar duration"
+    }
+  ],
+  "rebalancing_actions": [
+    {
+      "fund": "China Growth Fund",
+      "action": "Deploy excess cash",
+      "estimated_trade_impact": "$2.4M",
+      "priority": "Medium",
+      "timeline": "Within 5 business days"
+    },
+    {
+      "fund": "Global Bond Fund",
+      "action": "Divest sub-investment grade holding",
+      "estimated_trade_impact": "$5.1M",
+      "priority": "High",
+      "timeline": "Immediate (within 2 business days)"
+    }
+  ],
+  "ambiguity_flags": [
+    {
+      "rule_id": "R004",
+      "rule_name": "Credit Rating Floor",
+      "confidence_score": 78,
+      "ambiguity_note": "Please verify: Does 'investment grade' include BBB- or only BBB and above? Document language is unclear on exact threshold."
+    }
+  ]
+}

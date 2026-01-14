@@ -1,0 +1,53 @@
+{
+  "agent_name": "Rule Extraction Agent",
+  "agent_id": "6967f2adf038ff7259fe2dc2",
+  "agent_purpose": "parser",
+  "description": "Extracts structured compliance rules from Investment Guideline PDFs with rule details and confidence scoring",
+  "response_schema": {
+    "status": "string (success|error)",
+    "result": {
+      "extracted_items": [
+        {
+          "name": "string",
+          "value": "any",
+          "confidence": "number (0-1)"
+        }
+      ],
+      "total_count": "number",
+      "raw_text_processed": "boolean",
+      "parsing_notes": "string (optional)"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string (ISO)"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "extracted_items": [
+        {
+          "name": "Title",
+          "value": "Document Title",
+          "confidence": 0.95
+        },
+        {
+          "name": "Date",
+          "value": "2025-01-15",
+          "confidence": 0.9
+        }
+      ],
+      "total_count": 2,
+      "raw_text_processed": true,
+      "parsing_notes": "Successfully extracted key fields"
+    },
+    "metadata": {
+      "agent_name": "Rule Extraction Agent",
+      "timestamp": "2025-01-15T10:30:00Z"
+    }
+  },
+  "is_actual_tested": false,
+  "test_timestamp": null,
+  "test_message_used": "Parse this sample text for testing",
+  "test_error": "Agent API returned status 429"
+}

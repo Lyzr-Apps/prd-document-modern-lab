@@ -1,0 +1,57 @@
+{
+  "workflow_created": true,
+  "knowledge_base": {
+    "rag_id": "6967f293f0744176a3bf0476",
+    "rag_name": "investmentguidelinesknowledgebaseru1x",
+    "name": "Investment Guidelines Knowledge Base",
+    "files_ingested": [
+      {"filename": "IMA_eg1.pdf", "url": "https://asset.lyzr.app/DVdorrqe"},
+      {"filename": "IMA_eg2.pdf", "url": "https://asset.lyzr.app/6dvY81gP"},
+      {"filename": "IMA_eg3.pdf", "url": "https://asset.lyzr.app/LT23p3gD"}
+    ]
+  },
+  "agents": [
+    {
+      "agent_id": "6967f2adf038ff7259fe2dc2",
+      "name": "Rule Extraction Agent",
+      "type": "Sub-Agent",
+      "has_knowledge_base": true,
+      "rag_id": "6967f293f0744176a3bf0476",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "response_schema_saved": true
+    },
+    {
+      "agent_id": "6967f2cd55d255804bb17162",
+      "name": "Compliance Checker Agent",
+      "type": "Sub-Agent",
+      "has_knowledge_base": false,
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "response_schema_saved": true
+    },
+    {
+      "agent_id": "6967f34255d255804bb1716c",
+      "name": "Compliance Manager Agent",
+      "type": "Manager",
+      "has_knowledge_base": false,
+      "managed_agents": [
+        {
+          "id": "6967f2adf038ff7259fe2dc2",
+          "name": "Rule Extraction Agent"
+        },
+        {
+          "id": "6967f2cd55d255804bb17162",
+          "name": "Compliance Checker Agent"
+        }
+      ],
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "response_schema_saved": true,
+      "note": "Manager has managed_agents but missing KB feature (API limitation)"
+    }
+  ],
+  "total_agents": 3,
+  "workflow_nodes": 5,
+  "workflow_edges": 5
+}
